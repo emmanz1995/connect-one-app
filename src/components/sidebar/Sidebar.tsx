@@ -1,4 +1,4 @@
-import './sidebar.scss';
+// import './sidebar.scss';
 
 const Sidebar = () => {
   return (

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import Sidebar from '../../components/sidebar/Sidebar';
-import './dashboard.scss';
+// import './dashboard.scss';
 import * as api from '../../api/journal';
 import { map } from 'lodash';
 import Card from '../../components/Card/Card';
@@ -18,7 +18,7 @@ interface IJournal {
 
 function Dashboard() {
   const [ journals, setJournals ] = useState<IJournal[]>([]);
-  const [ message, setMessage ] = useState<string>('');
+  // const [ message, setMessage ] = useState<string>('');
 
   useEffect(() => {
     let isMounted = true
