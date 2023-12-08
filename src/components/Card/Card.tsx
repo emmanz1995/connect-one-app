@@ -1,5 +1,5 @@
 import { FC } from 'react';
-// import './styles.scss';
+import './styles.scss';
 import { FaEdit, FaTrash, FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
 
 type IJournal = {
@@ -13,20 +13,21 @@ type IJournal = {
 
 type MyComponentProps = {
   journal: IJournal;
+  onDeleteJournal: any;
 }
 
-const Card: FC<MyComponentProps> = ({ journal }) => (
+const Card: FC<MyComponentProps> = (props) => (
   <div className='card'>
     <div className="card__header">
-      <h4 className="card__title">{journal?.title}</h4>
+      <h4 className="card__title">{props.journal?.title}</h4>
       <div>
-        <FaTrash />{' '}
+        <FaTrash type='submit' onClick={() => props.onDeleteJournal(props.journal.id)} />{' '}
         <FaEdit />
       </div>
     </div>
-    <p className='card__desc'>{journal?.description}</p>
+    <p className='card__desc'>{props.journal?.description}</p>
     <div className='card__footer'>
-      {journal.completedAt ? <FaThumbsUp /> : <FaThumbsDown />}
+      {props.journal.completedAt ? <FaThumbsUp /> : <FaThumbsDown />}
     </div>
   </div>
 )

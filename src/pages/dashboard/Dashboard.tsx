@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import Sidebar from '../../components/sidebar/Sidebar';
-// import './dashboard.scss';
+import './dashboard.scss';
 import * as api from '../../api/journal';
 import { map } from 'lodash';
 import Card from '../../components/Card/Card';
-import CreateJournal from '../../components/createJournal/CreateJournal';
+// import CreateJournal from '../../components/createJournal/CreateJournal';
 
 interface IJournal {
   title: string;
@@ -18,7 +18,7 @@ interface IJournal {
 
 function Dashboard() {
   const [ journals, setJournals ] = useState<IJournal[]>([]);
-  // const [ message, setMessage ] = useState<string>('');
+  const [ message, setMessage ] = useState<string>('');
 
   useEffect(() => {
     let isMounted = true
@@ -48,13 +48,34 @@ function Dashboard() {
 
       console.log('New Journal Created:', newJournal);
     } catch(err: unknown) {
-      console.log(err)
+      const errorMsg = (err.response && err.response.data && err?.response?.data?.errorMessage) || err.data || err.toString();
+      setMessage(errorMsg);
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
+    }
+  }
+
+  const handleDeleteJournal = async (id: string) => {
+    try {
+      await api.onDeleteJournal(id);
+      setJournals(journals.filter((journal: IJournal) => journal.id !== id));
+
+      // the lodash way of filtering things out of an arr
+      // const filterOutJournal = filter(journals, journal => journal.id !== id);
+      // the normal filter way of filtering things out of an arr
+
+      // the splice way of filtering things out of an arr
+      // const journal = journals.findIndex(({ id }) => id === journalId);
+      // const filterOutJournal = journals.splice(journal, 1);
+    } catch(err) {
+      console.log(err);
     }
   }
 
   const mappedJournals = map(journals, (journal: IJournal) => (
     <div className="main__journal" key={journal?.id}>
-      <Card journal={journal} />
+      <Card journal={journal} onDeleteJournal={handleDeleteJournal} />
     </div>
   ));
   return (
@@ -66,9 +87,10 @@ function Dashboard() {
         </div>
         <div className="main__hub">
           <h4>Dashboard</h4>
-          <CreateJournal
-            onAddJournal={handleAddJournal}
-          />
+          <div>{message}</div>
+          {/*<CreateJournal*/}
+          {/*  onAddJournal={handleAddJournal}*/}
+          {/*/>*/}
           <div className="main__journalSection">
             {mappedJournals}
           </div>

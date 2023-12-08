@@ -7,7 +7,7 @@ describe('api calls works', () => {
   beforeEach(() => {
     jest.resetAllMocks();
   });
-  const mockJournal = (journalConnectors as unknown as jest.Mock);
+  const mockJournal = (journalConnectors as jest.Mock);
   describe('getting all journals', () => {
     const journals = [
       {
@@ -88,10 +88,44 @@ describe('api calls works', () => {
         throw new Error("Couldn't create a new journal");
       });
       try {
-        await api.onCreateJournal({title: '', description: ''})
+        await api.onCreateJournal({ title: '', description: '' })
       } catch(err: any) {
         expect(err.message).toEqual('Couldn\'t create a new journal');
       }
+    });
+  });
+  describe('delete one journal', () => {
+    it('should delete a single journal entry', async() => {
+      const formData = {
+        title: 'Good morning Holy Spirit!',
+        description: 'Good morning Holy Spirit of the Living God!',
+        completedAt: true,
+        createdAt: '2023-07-22T12:51:56.017Z',
+        updatedAt: '2023-07-22T12:56:41.464Z',
+        id: '64bbd0ec7fefd0f336abdd66'
+      };
+      mockJournal.mockResolvedValue(formData);
+
+      const deleteJournal = await api.onDeleteJournal(formData.id);
+      expect(deleteJournal).toEqual(formData);
+      expect(journalConnectors).toHaveBeenCalledTimes(1);
+      expect(journalConnectors).toHaveBeenCalledWith({
+        url: `http://localhost:3001/api/journal/${formData.id}`,
+        method: 'DELETE'
+      });
+    });
+    it('should throw error if there is a problem', async() => {
+      expect.assertions(2);
+      mockJournal.mockImplementationOnce(() => {
+        throw new Error('oops, failed to delete journal');
+      });
+
+      try {
+        await api.onDeleteJournal('');
+      } catch(err: any) {
+        expect(err.message).toEqual('oops, failed to delete journal');
+      }
+      expect(journalConnectors).toHaveBeenCalledTimes(1);
     });
   });
 });

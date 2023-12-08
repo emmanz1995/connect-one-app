@@ -8,19 +8,14 @@ import axios from 'axios';
 // }
 
 const journalConnectors = async ({ url = '', headers= {}, method = 'GET', ...rest }) => {
-  try {
-    const { data } = await axios({
-      url,
-      method,
-      ...headers,
-      data: rest.body,
-      ...rest
-    });
-    return data;
-  } catch(err: any) {
-    console.log(err);
-    throw err;
-  }
+  const { data } = await axios({
+    url,
+    method,
+    ...headers,
+    data: rest.body,
+    ...rest
+  });
+  return data;
 }
 
 export default journalConnectors;

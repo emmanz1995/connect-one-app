@@ -21,11 +21,16 @@ describe('Dashboard component', () => {
     jest.clearAllMocks();
   });
 
+  let component
+  let tree
+  beforeEach(() => {
+    component = create(<Dashboard />)
+    tree = component.toJSON()
+  })
+
   // Snapshot test for the Dashboard component
   it('renders correctly', () => {
     (api.getJournal as jest.MockedFunction<typeof api.getJournal>).mockResolvedValue([mockJournal])
-
-    const tree = create(<Dashboard />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 

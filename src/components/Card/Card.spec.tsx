@@ -21,7 +21,9 @@ describe('test', () => {
     id: "643db8c388f22f9d7395a0f5"
   }
   it('should display card journal', async () => {
-    const { getByText } = render(<Card journal={journals} />);
+    const { getByText } = render(
+      <Card journal={journals} onDeleteJournal={jest.fn()}/>
+    );
     const titleElement = getByText('Mum2');
     const descElement = getByText('I want Mum to have a bacon cheese sandwich!');
     expect(titleElement).toBeInTheDocument();

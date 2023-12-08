@@ -20,7 +20,6 @@ const CreateJournal: FC<{
   const handleCreateJournal = (evt: FormEvent) => {
     evt.preventDefault();
     onAddJournal(journalValues);
-    console.log('Journal Values:', journalValues);
   }
 
   return (
