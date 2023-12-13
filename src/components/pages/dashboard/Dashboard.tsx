@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import Navbar from '../../components/navbar/Navbar';
-import Sidebar from '../../components/sidebar/Sidebar';
+import Navbar from '../../organisms/navbar/Navbar';
+import Sidebar from '../../organisms/sidebar/Sidebar';
 import './dashboard.scss';
-import * as api from '../../api/journal';
+import * as api from '../../../api/journal';
 import { map } from 'lodash';
-import Card from '../../components/Card/Card';
+import Card from '../../organisms/Card/Card';
 // import CreateJournal from '../../components/createJournal/CreateJournal';
 
 interface IJournal {

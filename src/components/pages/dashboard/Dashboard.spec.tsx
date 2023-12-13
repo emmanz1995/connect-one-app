@@ -3,7 +3,7 @@ import { render, act, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import Dashboard from './Dashboard';
-import * as api from '../../api/journal';
+import * as api from '../../../api/journal';
 
 // Mock the dependencies used in the Dashboard component
 jest.mock('../../api/journal');

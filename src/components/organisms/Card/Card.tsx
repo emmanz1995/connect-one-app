@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import './styles.scss';
-import { FaEdit, FaTrash, FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaThumbsUp, FaThumbsDown, FaEye } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
 
 type IJournal = {
   title: string;
@@ -21,6 +22,7 @@ const Card: FC<MyComponentProps> = (props) => (
     <div className="card__header">
       <h4 className="card__title">{props.journal?.title}</h4>
       <div>
+        <Link to={`/journal/${props.journal.id}`}><FaEye /></Link>{' '}
         <FaTrash type='submit' onClick={() => props.onDeleteJournal(props.journal.id)} />{' '}
         <FaEdit />
       </div>

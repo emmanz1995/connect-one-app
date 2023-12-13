@@ -7,6 +7,12 @@ const getJournal = async () =>
     method: 'GET',
   });
 
+const getSingleJournal = async (id: string | undefined) =>
+  await journalConnectors({
+    url: `http://localhost:3001/api/journal/${id}`,
+    method: 'GET'
+  })
+
 const onCreateJournal = async(formData: { title: string, description: string }) =>
   await journalConnectors({
     url: 'http://localhost:3001/api/journal',
@@ -37,6 +43,7 @@ const onDeleteJournal = async (id: string) =>
 
 export {
   getJournal,
+  getSingleJournal,
   onCreateJournal,
   onDeleteJournal
 }
