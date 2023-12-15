@@ -1,5 +1,4 @@
 import journalConnectors from '../helpers/journalConnector';
-import axios from 'axios';
 
 const getJournal = async () =>
   await journalConnectors({
