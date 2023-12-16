@@ -6,7 +6,7 @@ import Dashboard from './Dashboard';
 import * as api from '../../../api/journal';
 
 // Mock the dependencies used in the Dashboard component
-jest.mock('../../api/journal');
+jest.mock('../../../api/journal');
 
 const mockJournal = {
   title: 'Homer Simpson',

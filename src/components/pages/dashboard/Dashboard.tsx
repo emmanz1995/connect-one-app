@@ -5,7 +5,7 @@ import './dashboard.scss';
 import * as api from '../../../api/journal';
 import { map } from 'lodash';
 import Card from '../../organisms/Card/Card';
-// import CreateJournal from '../../components/createJournal/CreateJournal';
+import CreateJournal from '../../organisms/createJournal/CreateJournal';
 
 interface IJournal {
   title: string;
@@ -48,7 +48,16 @@ function Dashboard() {
 
       console.log('New Journal Created:', newJournal);
     } catch(err: unknown) {
-      const errorMsg = (err.response && err.response.data && err?.response?.data?.errorMessage) || err.data || err.toString();
+      // const errorMsg = (err.response && err.response.data && (err as { response: { data: { errorMessage: string } } }).response?.data?.errorMessage) || (err as { data: string }).data || (err as string).toString();
+      const errorMsg =
+        (err.response &&
+          err.response.data &&
+          typeof err.response.data.errorMessage === 'string' &&
+          err.response.data.errorMessage) ||
+        (typeof err.data === 'string' && err.data) ||
+        (typeof err === 'string' && err.toString()) ||
+        'Unknown error';
+
       setMessage(errorMsg);
       setTimeout(() => {
         setMessage(null)
@@ -88,9 +97,9 @@ function Dashboard() {
         <div className="main__hub">
           <h4>Dashboard</h4>
           <div>{message}</div>
-          {/*<CreateJournal*/}
-          {/*  onAddJournal={handleAddJournal}*/}
-          {/*/>*/}
+          <CreateJournal
+            onAddJournal={handleAddJournal}
+          />
           <div className="main__journalSection">
             {mappedJournals}
           </div>
