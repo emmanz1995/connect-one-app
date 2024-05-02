@@ -13,13 +13,13 @@ describe('test', () => {
   })
   const handleCreateJournal = jest.fn()
   it('should render createJournal component', () => {
-    const { getByText, getByLabelText } = render(<CreateJournal onAddJournal={handleCreateJournal} />);
+    const { getByText, getByLabelText } = render(<CreateJournal onAddJournal={handleCreateJournal}  message='' />);
     //TODO: I have to figure out why this is complaining 😊
     expect(getByText('Create new journal')).toBeInTheDocument;
     expect(getByLabelText('Title')).toBeInTheDocument;
   })
   test('updates input fields correctly', async () => {
-    const { getByLabelText } = render(<CreateJournal onAddJournal={handleCreateJournal} />);
+    const { getByLabelText } = render(<CreateJournal onAddJournal={handleCreateJournal}  message=''/>);
 
     // Get the input fields
     const titleInput = getByLabelText('Title') as HTMLInputElement;
@@ -35,7 +35,7 @@ describe('test', () => {
   });
 
   test('calls onAddJournal with the correct values when submitted', async () => {
-    const { getByLabelText, getByText } = render(<CreateJournal onAddJournal={handleCreateJournal} />);
+    const { getByLabelText, getByText } = render(<CreateJournal onAddJournal={handleCreateJournal}  message='' />);
 
     // Get the input fields and submit button
     const titleInput = getByLabelText('Title') as HTMLInputElement;
@@ -50,7 +50,7 @@ describe('test', () => {
     fireEvent.click(submitButton);
 
     // Wait for the async event (onAddJournal) to resolve
-    await waitFor(() => expect(handleCreateJournal).toHaveBeenCalled());
+    await waitFor(() => expect(handleCreateJournal).toHaveBeenCalledTimes(1));
 
     // Check if onAddJournal was called with the correct values
     expect(handleCreateJournal).toHaveBeenCalledWith({

@@ -1,44 +1,25 @@
-import journalConnectors from '../helpers/journalConnector';
+import axios from 'axios';
 
-const getJournal = async () =>
-  await journalConnectors({
-    url: 'http://localhost:3001/api/journal',
-    method: 'GET',
-  });
+const getJournal = async () => {}
 
-const getSingleJournal = async (id: string | undefined) =>
-  await journalConnectors({
-    url: `http://localhost:3001/api/journal/${id}`,
-    method: 'GET'
-  })
+const getMyJournals = async () => {}
 
-const onCreateJournal = async(formData: { title: string, description: string }) =>
-  await journalConnectors({
-    url: 'http://localhost:3001/api/journal',
-    headers: {
-      contentType: 'application/json'
-    },
-    method: 'POST',
-    body: formData
-  });
+const getSingleJournal = async (id: string | undefined) => {}
 
-const onDeleteJournal = async (id: string) =>
-  await journalConnectors({
-    url: `http://localhost:3001/api/journal/${id}`,
-    method: 'DELETE'
-  });
+const onCreateJournal = async(formData: { title: string, description: string }) => {}
 
-// const onDeleteJournal = async (id: string) => {
-//   try {
-//     const { data } = await axios({
-//       url: `http://localhost:3001/api/journal/${id}`,
-//       method: 'DELETE'
-//     })
-//     return data;
-//   } catch (err) {
-//     console.log(err);
-//   }
-// }
+const onDeleteJournal = async (id: string) => {
+  try {
+    const { data } = await axios({
+      url: `${import.meta.env.VITE_API_URL}/api/journal/${id}`,
+      method: 'DELETE'
+    })
+    return data;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
 
 export {
   getJournal,

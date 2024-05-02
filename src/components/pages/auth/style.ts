@@ -8,7 +8,7 @@ export const LoginContainer = styled.div`
   justify-content: center;
 `;
 export const LoginSection = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  //display: flex;
+  //align-items: center;
+  //justify-content: center;
 `;

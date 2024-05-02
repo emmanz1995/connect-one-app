@@ -43,7 +43,7 @@ describe('test journal api', () => {
         data: ''
       });
     } catch(err: any) {
-      expect(err.message).toEqual('oops')
+      expect(err.message).toEqual('oops');
     }
   });
 });
