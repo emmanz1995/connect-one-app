@@ -8,7 +8,9 @@ export interface ButtonProps {
 }
 
 const Button: FC<ButtonProps> = ({ size, label, onClick }) => (
-  <StyledButton size={size} onClick={onClick} on>{label}</StyledButton>
+  <StyledButton size={size} onClick={onClick}>
+    {label}
+  </StyledButton>
 );
 
 export default Button;
